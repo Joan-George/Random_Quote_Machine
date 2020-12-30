@@ -18,7 +18,16 @@ class QuoteMain extends React.Component {
     this.setState({ update: true });
   }
 
-  shouldComponentUpdate() {}
+  shouldComponentUpdate(nextProps,nextState) {
+    if(nextState.update){
+      this.setState({ update: false });
+      return true
+    }
+  }
+
+  componentDidUpdate(prevProps,prevState) {
+    this.setQuotes()
+  }
   
   setQuotes() {
     fetch("https://type.fit/api/quotes")
@@ -33,6 +42,7 @@ class QuoteMain extends React.Component {
   }
 
   componentDidMount() {
+    alert("componentDidMount")
     this.setQuotes();
   }
 
